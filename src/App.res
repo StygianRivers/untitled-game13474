@@ -33,7 +33,7 @@ let make = () => {
   let onDragOver = (ev: JsxEvent.Mouse.t) => {
     ReactEvent.Mouse.preventDefault(ev)
   }
-  //
+
   <div className="container">
     <table className="table">
       <tbody>
@@ -56,12 +56,14 @@ let make = () => {
     </table>
     <div className="box">
       {Array.map(Belt.Set.String.toArray(availableTasks), availableTask => {
+        let isDragged = draggedTask == availableTask
         let onDragStart = ev => {
           setDraggedTask(_ => availableTask)
         }
-        <div className="dragelem" draggable=true onDragStart> {availableTask->React.string} </div>
+        <div className="dragelem" draggable=true onDragStart hidden=isDragged key={availableTask}>
+          {availableTask->React.string}
+        </div>
       })->React.array}
     </div>
   </div>
 }
-// 
